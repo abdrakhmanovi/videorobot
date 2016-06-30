@@ -65,7 +65,7 @@ public class UserDaoTest extends BaseDaoTestCase {
         user2.setLastName(user.getLastName());
         user2.setPassword(user.getPassword());
         user2.setPasswordHint(user.getPasswordHint());
-        user2.setRoles(user.getRoles());
+//        user2.setRoles(user.getRoles());
         user2.setUsername(user.getUsername());
         user2.setWebsite(user.getWebsite());
 
