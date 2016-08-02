@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 public class SRT implements Comparable<SRT> {
-    public final int number;
-    public final Date startTime;
-    public final Date endTime;
-    public final List<String> text;
-    
+	public final int number;
+	public final Date startTime;
+	public final Date endTime;
+	public final List<String> text;
+
     /**
      * Creates a new instance of SRT.
      * 
@@ -85,4 +85,19 @@ public class SRT implements Comparable<SRT> {
             .append(text).append("]");
         return builder.toString();
     }
+    
+    
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public String getFullText() {
+		String fullText = "";		
+		for(String textPart : text){
+			fullText = fullText + textPart;
+		}
+		fullText.replace("[", "").replace("]", "");
+		return fullText;
+	}
 }

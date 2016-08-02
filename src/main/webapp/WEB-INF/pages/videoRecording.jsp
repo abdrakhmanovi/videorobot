@@ -13,8 +13,14 @@ This a cameras overview page
 </br></br></br>
 
 Streaming from  ${defaultCameraAddress}<br/>
-<embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" volume="30" autoplay="no" controls="yes" loop="no" width="640" height="480" target="${defaultCameraAddress}" />
+<embed id = "vlcRTSP" type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" volume="30" autoplay="no" controls="yes" loop="no" width="640" height="480" target="${defaultCameraAddress}" />
 
+<input type="button" onClick="getVLCTime();">
+
+
+	
+<video id="sampleMovie" src="${defaultCameraAddress}" width=”640” height=”360”></video>
+	
 <br/>
 <input id="recordingStartButton" type="button" value="Start recording" onClick="showProgress();startRecording();"/>
 <input id="recordingStopButton" type="button" value="Stop recording" onClick="showProgress(); stopRecording();" style="display:none;"/>
@@ -32,6 +38,11 @@ Streaming from  ${defaultCameraAddress}<br/>
 </div>
 
 <script>
+
+	function getVLCTime(){
+		var vlc = document.getElementById("vlcRTSP");
+		alert(vlcRTSP.input.time/1000/60);
+	};
 
 	function commentFormSubmit(){
 		var msg   = $('#comment_form').serialize();

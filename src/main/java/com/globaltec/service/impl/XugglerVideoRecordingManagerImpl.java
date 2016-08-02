@@ -1,7 +1,9 @@
 package com.globaltec.service.impl;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,6 +107,25 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record,
 	public boolean stopRecording(String cameraURL) {
 		continueProcessing = false;		
 		return true;
+	}
+
+
+	public List<Record> getAll() {
+		List<Record> records = recordDao.getAll();
+		for(Record record : records){
+			File checkFile = new File(fileStoragePath + "/" + record.getId() + ".mp4");
+			if(checkFile.exists() && !checkFile.isDirectory()) { 
+			    record.setVideoFound(true);
+			} else {
+				record.setVideoFound(false);
+			}
+		}
+		return records;
+	}
+	
+	public Record get(Long recordId) {
+		Record record = recordDao.get(recordId);
+		return record;
 	}
 
 }

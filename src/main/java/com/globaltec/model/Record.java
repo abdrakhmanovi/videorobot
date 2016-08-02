@@ -20,6 +20,8 @@ public class Record extends BaseObject implements Serializable {
 	
 	private String name;
 	
+	private boolean videoFound;
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date creationDate; 
 
@@ -49,6 +51,14 @@ public class Record extends BaseObject implements Serializable {
 		this.creationDate = creationDate;
 	}
 
+	public boolean isVideoFound() {
+		return videoFound;
+	}
+
+	public void setVideoFound(boolean videoFound) {
+		this.videoFound = videoFound;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
