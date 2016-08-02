@@ -11,6 +11,8 @@
     <menu:displayMenu name="Home"/>
     <menu:displayMenu name="UserMenu"/>
     <menu:displayMenu name="AdminMenu"/>
+    <menu:displayMenu name="Recording"/>
+    <menu:displayMenu name="Playback"/>
     <menu:displayMenu name="Logout"/>
 </ul>
 </div>

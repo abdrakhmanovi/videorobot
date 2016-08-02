@@ -8,5 +8,7 @@
     <session-factory>
         <mapping class="com.globaltec.model.User"/>
         <mapping class="com.globaltec.model.Role"/>
+        <mapping class="com.globaltec.model.Record"/>
+        <mapping class="com.globaltec.model.Person"/>
     </session-factory>
 </hibernate-configuration>

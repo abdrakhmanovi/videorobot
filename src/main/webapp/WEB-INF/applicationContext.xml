@@ -12,8 +12,23 @@
     <context:component-scan base-package="com.globaltec"/>
 
     <!-- Add new DAOs here -->
+	
+	<bean id="recordDao" class="com.globaltec.dao.hibernate.GenericDaoHibernate">
+        <constructor-arg value="com.globaltec.model.Record"/>
+    </bean> 
+    
+    <bean id="personDao" class="com.globaltec.dao.hibernate.GenericDaoHibernate">
+        <constructor-arg value="com.globaltec.model.Person"/>
+    </bean> 
 
     <!-- Add new Managers here -->
+	<bean id="videoRecordingManager" class="com.globaltec.service.impl.XugglerVideoRecordingManagerImpl">    
+	    <constructor-arg>        
+	        <bean class="com.globaltec.dao.hibernate.GenericDaoHibernate" autowire="byType">            
+	            <constructor-arg value="com.globaltec.model.Person"/>        
+	        </bean>    
+	    </constructor-arg>
+	</bean>
     
     <!-- Configure and Alternative PasswordTokenManager -->
 	<!-- <bean id="passwordTokenManager" class="com.globaltec.service.impl.PersistentPasswordTokenManagerImpl" autowire="default" /> -->

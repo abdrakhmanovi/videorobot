@@ -1,38 +1,51 @@
 package com.globaltec.service.impl;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.globaltec.ConstantsVideoRobot;
+import com.globaltec.dao.GenericDao;
+import com.globaltec.model.Record;
 import com.globaltec.service.VideoRecordingManager;
 import com.xuggle.mediatool.IMediaReader;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.IError;
 
-public class XugglerVideoRecordingManagerImpl implements VideoRecordingManager{
+@Service("videoRecordingManager")
+public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record, Long> implements VideoRecordingManager{
 
-	//Provide a Singletone implementation for XugglerVideoRecordingManagerImpl
-	private static XugglerVideoRecordingManagerImpl instance;
+	String fileStoragePath = ConstantsVideoRobot.FILE_STORAGE;
 	
-	public static synchronized XugglerVideoRecordingManagerImpl getInstance() {
-		if (instance == null) {
-			instance = new XugglerVideoRecordingManagerImpl();
-		}
-		return instance;
+	@Autowired
+	private GenericDao<Record, Long> recordDao;
+	
+	public XugglerVideoRecordingManagerImpl(GenericDao recordDao){
+		this.recordDao = recordDao;
 	}
 	
 	private static IMediaReader reader = null;
 	private static IMediaWriter writer = null;
 	private static boolean continueProcessing;
 	
-	@Override
-	public boolean startRecording(String cameraURL) throws Exception {
+	public boolean startRecording(String cameraURL, Long recordId) throws Exception {
+		
+		Record record;
+		System.out.println(recordDao + "!!!");
+		if(recordId == null){
+			record = new Record();
+			record.setName("test video name");
+			recordDao.save(record);
+			recordId = record.getId();
+		} else {
+			record = (Record) recordDao.get(recordId);
+		}
 		
 		reader = ToolFactory.makeReader(cameraURL);
 		reader.setBufferedImageTypeToGenerate(BufferedImage.TYPE_3BYTE_BGR);
-		writer = ToolFactory.makeWriter("d:/output.mp4", reader);
+		writer = ToolFactory.makeWriter(fileStoragePath + "/" + recordId + ".mp4", reader);
 		reader.addListener(writer);
 
 		IError err = null;
