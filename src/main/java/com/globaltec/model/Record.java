@@ -1,12 +1,15 @@
 package com.globaltec.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Record extends BaseObject implements Serializable {
@@ -16,6 +19,9 @@ public class Record extends BaseObject implements Serializable {
 	private Long id;
 	
 	private String name;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date creationDate; 
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO) 
@@ -27,13 +33,20 @@ public class Record extends BaseObject implements Serializable {
 		this.id = id;
 	}
 	
-	@Column(name="name", length=50)
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 	@Override

@@ -41,21 +41,15 @@ public class VideoRecordingController {
 	
 	@Autowired
 	private VideoRecordingManager videoRecordingManager;
-	
-	String cameraURL;
-	String fileStoragePath;
-	CommentManager commentManager;
-	
+
+	private CommentManager commentManager;	
+	private String cameraURL;
+	private String fileStoragePath;
+	private Record currentRecord;
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest() throws Exception {
-    	System.out.println(recordDao + "!!!!!!!!!!!!!!!!!!!!");
-    	//Initialize all the variables
-    	cameraURL = "rtsp://localhost:8554/";
-    	fileStoragePath = ConstantsVideoRobot.FILE_STORAGE;
-    	System.out.println(videoRecordingManager);
-    	//videoRecordingManager = new XugglerVideoRecordingManagerImpl(fileStoragePath);
-    	commentManager = new SubtitleCommentManagerImpl(fileStoragePath);
-    	
+    	setConstants();
         return new ModelAndView().addObject("defaultCameraAddress", cameraURL);
     }
     
@@ -63,10 +57,11 @@ public class VideoRecordingController {
     @ResponseBody
     @Async
     public Map<String,Object> startRecording() {
+    	setConstants();
     	Map<String, Object> returnObject = new HashMap<String, Object>();
-    	boolean isRecordingStarted = false;
     	try {
-			isRecordingStarted = videoRecordingManager.startRecording(cameraURL, null);
+    		currentRecord = videoRecordingManager.startRecording(cameraURL, null);
+			commentManager = new SubtitleCommentManagerImpl(currentRecord);
 		} catch (Exception e) {
 			e.printStackTrace();
 			returnObject.put("errorMessage", e.getMessage());
@@ -81,10 +76,11 @@ public class VideoRecordingController {
     @ResponseBody
     @Async
     public Map<String,Object> stopRecording() {
+    	setConstants();
     	Map<String, Object> returnObject = new HashMap<String, Object>();
-    	boolean isRecordingStarted = false;
+    	boolean isRecordingStoped = false;
     	try {
-			isRecordingStarted = videoRecordingManager.stopRecording(cameraURL);
+    		isRecordingStoped = videoRecordingManager.stopRecording(cameraURL);
 			//commentManager.finalizeComments();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -101,8 +97,14 @@ public class VideoRecordingController {
     @Async
     public Map<String, Object> saveComment(@RequestParam("commentText") String commentText, Long recordId) {
     	Map<String, Object> returnObject = new HashMap<String, Object>();
-    	commentManager.saveComment(commentText, recordId);
+    	commentManager.saveComment(commentText);
     	returnObject.put("isSuccessful", false);
     	return returnObject;
    	}
+    
+    //TODO: Deal with constants
+    private void setConstants(){
+    	cameraURL = ConstantsVideoRobot.TEST_CAMERA_URL;
+    	fileStoragePath = ConstantsVideoRobot.FILE_STORAGE;
+    }
 }

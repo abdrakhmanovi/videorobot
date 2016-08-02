@@ -22,6 +22,7 @@
     </bean> 
 
     <!-- Add new Managers here -->
+
 	<bean id="videoRecordingManager" class="com.globaltec.service.impl.XugglerVideoRecordingManagerImpl">    
 	    <constructor-arg>        
 	        <bean class="com.globaltec.dao.hibernate.GenericDaoHibernate" autowire="byType">            

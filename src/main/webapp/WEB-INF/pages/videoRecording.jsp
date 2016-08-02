@@ -27,6 +27,7 @@ Streaming from  ${defaultCameraAddress}<br/>
 		Enter your comment:</br>
 		<TEXTAREA WRAP="virtual" COLS="40" ROWS="3" id="commentText"></TEXTAREA></br>
 		<input id="commentButton" type="button" value="Send comment" onClick="commentFormSubmit();"/>
+		<input id="recordId" type="hidden" value=""/>
 	</form>
 </div>
 
@@ -60,25 +61,28 @@ Streaming from  ${defaultCameraAddress}<br/>
 	};
 
 	function displayRecordingControls(){
-		hideProgress();
+		$("#recordingStopButton").show();
+		$("#recordingStartButton").hide();
 		$("#comment_area").show();
+		hideProgress();
 	};
 	
 	function hideRecordingControls(){
-		hideProgress();
+		$("#recordingStopButton").hide();
+		$("#recordingStartButton").show();
 		$("#comment_area").hide();
+		hideProgress();
 	};
 	
 	var startRecording = function() {
-		$("#recordingStartButton").hide();
-		$("#recordingStopButton").show();
-		$("#comment_textarea").show();
+		showProgress();
 		$.ajax({
 		    url: "/videoRecording/startRecording",
 			type: "POST",
 		    success: function(response) {
 		    	displayRecordingControls();
 		    	if(!response.isSuccessful){
+		    		hideRecordingControls();
 		    		alert(response.errorMessage);
 		    	} else{
 		    		$("#recording_gif").show();
@@ -93,9 +97,7 @@ Streaming from  ${defaultCameraAddress}<br/>
 	};
 	
 	var stopRecording = function() {
-		$("#recordingStopButton").hide();
-		$("#recordingStartButton").show();
-		$("#comment_textarea").hide();
+		showProgress();
 		$.ajax({
 		    url: "/videoRecording/stopRecording",
 			type: "POST",

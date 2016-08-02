@@ -1,6 +1,7 @@
 package com.globaltec.service.impl;
 
 import java.awt.image.BufferedImage;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,20 +25,22 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record,
 	
 	public XugglerVideoRecordingManagerImpl(GenericDao recordDao){
 		this.recordDao = recordDao;
+		
 	}
 	
 	private static IMediaReader reader = null;
 	private static IMediaWriter writer = null;
 	private static boolean continueProcessing;
 	
-	public boolean startRecording(String cameraURL, Long recordId) throws Exception {
+	public Record startRecording(String cameraURL, Long recordId) throws Exception {
 		
 		Record record;
 		System.out.println(recordDao + "!!!");
-		if(recordId == null){
+		if( recordId == null ){
 			record = new Record();
 			record.setName("test video name");
-			recordDao.save(record);
+			record.setCreationDate(new Date());
+			record = recordDao.save(record);
 			recordId = record.getId();
 		} else {
 			record = (Record) recordDao.get(recordId);
@@ -85,12 +88,8 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record,
 				}
 			});
 			t1.start();
-			return true;
+			return record;
 		}
-	}
-
-	private static void saveComment() {
-		System.out.println(System.currentTimeMillis());
 	}
 
 	private static void closeStreams() {
