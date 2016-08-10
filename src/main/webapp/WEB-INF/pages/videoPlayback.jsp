@@ -15,10 +15,10 @@
 				<li>
 					<c:choose>
 					    <c:when test="${record.videoFound}">
-					    	<a href="/videoPlayback?videoId=${record.id}">${record.name}</a>
+					    	<a href="/videoPlayback?videoId=${record.id}">${record.name}</a> ${record.creationDate}
 					    </c:when>    
 					    <c:otherwise>
-					    	${record.name} (video not found in file storage)
+					    	${record.name} ${record.creationDate} (video not found in file storage)
 					    </c:otherwise>
 				    </c:choose>
 				</li>

@@ -16,14 +16,10 @@
 	<bean id="recordDao" class="com.globaltec.dao.hibernate.GenericDaoHibernate">
         <constructor-arg value="com.globaltec.model.Record"/>
     </bean> 
-    
-    <bean id="personDao" class="com.globaltec.dao.hibernate.GenericDaoHibernate">
-        <constructor-arg value="com.globaltec.model.Person"/>
-    </bean> 
 
     <!-- Add new Managers here -->
-
-	<bean id="videoRecordingManager" class="com.globaltec.service.impl.XugglerVideoRecordingManagerImpl">    
+	
+	<bean id="videoRecordingManager" class="com.globaltec.service.impl.XugglerVideoRecordingManagerImpl" autowire="byType">    
 	    <constructor-arg>        
 	        <bean class="com.globaltec.dao.hibernate.GenericDaoHibernate" autowire="byType">            
 	            <constructor-arg value="com.globaltec.model.Person"/>        

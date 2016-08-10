@@ -12,17 +12,21 @@
 This a cameras overview page
 </br></br></br>
 
-Streaming from  ${defaultCameraAddress}<br/>
-<embed id = "vlcRTSP" type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" volume="30" autoplay="no" controls="yes" loop="no" width="640" height="480" target="${defaultCameraAddress}" />
+<c:forEach var="singleCameraURL" items="${camerasURL}">
+	<input type="checkbox" id="cameraIdToRecord" value="${singleCameraURL.key}">
+	Streaming from  ${singleCameraURL.value}<br/>
+	<embed id = "vlcRTSP${singleCameraURL.key}" type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" volume="30" autoplay="no" controls="yes" loop="no" width="640" height="480" target="${singleCameraURL.value}" />
+	</br>
+</c:forEach>
 
+<input type="hidden" id="cameraIdToRecord">
+
+<input type="button" onClick="verifyCheckboxes();">
 <input type="button" onClick="getVLCTime();">
-
-
 	
-<video id="sampleMovie" src="${defaultCameraAddress}" width=”640” height=”360”></video>
 	
 <br/>
-<input id="recordingStartButton" type="button" value="Start recording" onClick="showProgress();startRecording();"/>
+<input id="recordingStartButton" type="button" value="Start recording" onClick="verifyCheckboxes();"/>
 <input id="recordingStopButton" type="button" value="Stop recording" onClick="showProgress(); stopRecording();" style="display:none;"/>
 <img src="/images/loading.gif" style="width:20px;display:none;" id="loading_gif"/>
 <img src="/images/recording.gif" style="width:20px;display:none;" id="recording_gif" style="display:none;"/>
@@ -39,9 +43,25 @@ Streaming from  ${defaultCameraAddress}<br/>
 
 <script>
 
+	var cameraListVariable = "";
+
 	function getVLCTime(){
 		var vlc = document.getElementById("vlcRTSP");
 		alert(vlcRTSP.input.time/1000/60);
+	};
+	
+	function verifyCheckboxes(){
+		cameraListVariable = "";
+		$("#cameraIdToRecord:checked").each(function(){
+			cameraListVariable = cameraListVariable + $(this).val() + "_";
+		});
+		if(cameraListVariable != ""){
+			$("#cameraIdToRecord").val(cameraListVariable);
+			showProgress();
+			startRecording();
+		} else {
+			alert("select camera to record")
+		}
 	};
 
 	function commentFormSubmit(){
@@ -90,6 +110,7 @@ Streaming from  ${defaultCameraAddress}<br/>
 		$.ajax({
 		    url: "/videoRecording/startRecording",
 			type: "POST",
+			data: "cameraIdToRecord=" + $("#cameraIdToRecord").val(),
 		    success: function(response) {
 		    	displayRecordingControls();
 		    	if(!response.isSuccessful){

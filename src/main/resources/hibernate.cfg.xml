@@ -10,5 +10,6 @@
         <mapping class="com.globaltec.model.Role"/>
         <mapping class="com.globaltec.model.Record"/>
         <mapping class="com.globaltec.model.Person"/>
+        <mapping class="com.globaltec.model.RecordCamera"/>
     </session-factory>
 </hibernate-configuration>

@@ -2,12 +2,15 @@ package com.globaltec.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,6 +27,8 @@ public class Record extends BaseObject implements Serializable {
 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date creationDate; 
+	
+	private List<RecordCamera> recordCameras;
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO) 
@@ -64,6 +69,15 @@ public class Record extends BaseObject implements Serializable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "record")
+	public List<RecordCamera> getRecordCameras() {
+		return recordCameras;
+	}
+
+	public void setRecordCameras(List<RecordCamera> recordCameras) {
+		this.recordCameras = recordCameras;
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -75,6 +89,10 @@ public class Record extends BaseObject implements Serializable {
 	public int hashCode() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public void addRecordCamera(RecordCamera recordCamera){
+		recordCameras.add(recordCamera);
 	}
 	
 }
