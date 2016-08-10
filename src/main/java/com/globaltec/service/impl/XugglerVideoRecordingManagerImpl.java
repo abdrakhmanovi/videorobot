@@ -25,8 +25,8 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record,
 	
 	private List<XugglerWriter> cameraWriters = new ArrayList<>();
 	
-	public XugglerVideoRecordingManagerImpl(GenericDao recordDao){
-		this.recordDao = recordDao;	
+	public XugglerVideoRecordingManagerImpl(GenericDao<Record, Long> recordDao){
+		this.recordDao = recordDao;
 	}
 	
 	public Record startRecording(List<String> cameraIdList, Long recordId) throws Exception {

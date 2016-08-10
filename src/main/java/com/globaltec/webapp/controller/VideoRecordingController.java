@@ -33,9 +33,6 @@ import com.globaltec.service.impl.SubtitleCommentManagerImpl;
 public class VideoRecordingController {
 
 	@Autowired
-	private GenericDao<Record, Long> recordDao;
-	
-	@Autowired
 	private VideoRecordingManager videoRecordingManager;
 	
 	private CommentManager commentManager;	

@@ -20,11 +20,7 @@
     <!-- Add new Managers here -->
 	
 	<bean id="videoRecordingManager" class="com.globaltec.service.impl.XugglerVideoRecordingManagerImpl" autowire="byType">    
-	    <constructor-arg>        
-	        <bean class="com.globaltec.dao.hibernate.GenericDaoHibernate" autowire="byType">            
-	            <constructor-arg value="com.globaltec.model.Person"/>        
-	        </bean>    
-	    </constructor-arg>
+	    <constructor-arg ref="recordDao"/> 
 	</bean>
     
     <!-- Configure and Alternative PasswordTokenManager -->
