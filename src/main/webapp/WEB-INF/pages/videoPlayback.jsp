@@ -8,7 +8,7 @@
 
 	This a playback
 	</br>
-
+	
 	<c:if test="${not empty recordsList}">
 		<ul>
 			<c:forEach var="record" items="${recordsList}">
@@ -33,7 +33,7 @@
 
 		<c:forEach var="subtitle" items="${subtitles}">
 			<li>
-				<a href="javascript:moveToPoint(${subtitle.startTime.time}/1000);">${subtitle.fullText} : ${subtitle.startTime.time/1000})</a> 
+				<a href="javascript:moveToPoint(${subtitle.startTime.time}/1000);">${subtitle.fullText} : ${subtitle.startTime.time/1000}</a> 
 			</li>
 		</c:forEach>
 		

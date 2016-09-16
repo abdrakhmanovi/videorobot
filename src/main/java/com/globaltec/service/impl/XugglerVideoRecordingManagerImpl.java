@@ -2,12 +2,14 @@ package com.globaltec.service.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.globaltec.ConstantsVideoRobot;
 import com.globaltec.dao.GenericDao;
@@ -15,23 +17,21 @@ import com.globaltec.model.Record;
 import com.globaltec.model.RecordCamera;
 import com.globaltec.service.VideoRecordingManager;
 import com.globaltec.xuggler.XugglerWriter;
-import com.xuggle.xuggler.IError;
 
 @Service("videoRecordingManager")
-public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record, Long> implements VideoRecordingManager{
+public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl implements VideoRecordingManager{
 
 	@Autowired
 	private GenericDao<Record, Long> recordDao;
+
+	@Autowired
+	private GenericDao<RecordCamera, Long> recordCameraDao;
 	
 	private List<XugglerWriter> cameraWriters = new ArrayList<>();
 	
-	public XugglerVideoRecordingManagerImpl(GenericDao<Record, Long> recordDao){
-		this.recordDao = recordDao;
-	}
+	private Record record = null;
 	
 	public Record startRecording(List<String> cameraIdList, Long recordId) throws Exception {
-		Record record;
-
 		if( recordId == null ){
 			record = new Record();
 			record.setName("test video name");
@@ -44,18 +44,15 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record,
 		
 		final Long recordFinalId = recordId;
 		
-		List<RecordCamera> recordCameras = new ArrayList<>();
 		for(final String cameraID : cameraIdList){
 			Thread t1 = new Thread(new Runnable() {
 				public void run() {
-					XugglerWriter xugglerWriter = new XugglerWriter(recordDao, recordFinalId, cameraID);
+					XugglerWriter xugglerWriter = new XugglerWriter(recordFinalId, cameraID);
 					try {
 						RecordCamera recordCamera = xugglerWriter.startRecording();
-						if(recordCamera != null) {
-							recordCameras.add(recordCamera);
-						}
+						recordCameraDao.save(recordCamera);
+						recordDao.save(record);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					cameraWriters.add(xugglerWriter);
@@ -64,8 +61,6 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record,
 			});
 			t1.start();
 		}
-		record.setRecordCameras(recordCameras);
-		recordDao.save(record);
 		return record;
 	}
 
@@ -73,14 +68,21 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl<Record,
 	public List<Record> getAll() {
 		List<Record> records = recordDao.getAll();
 		for(Record record : records){
-			File checkFile = new File(ConstantsVideoRobot.FILE_STORAGE + "/" + record.getId() + "_*.mp4");
-			if(checkFile.exists() && !checkFile.isDirectory()) { 
+			Collection<File> checkFile = listFilesByWildcard(ConstantsVideoRobot.FILE_STORAGE + "/", record.getId() + "_*.mp4");
+			if(checkFile.size()>0) { 
 			    record.setVideoFound(true);
 			} else {
 				record.setVideoFound(false);
 			}
 		}
 		return records;
+	}
+	
+	private Collection<File> listFilesByWildcard(String folderName, String wildcard){
+		File directory = new File(folderName);
+		Collection<File> files = FileUtils.listFiles(directory, new WildcardFileFilter(wildcard), null);
+		return files;
+		
 	}
 	
 	public Record get(Long recordId) {

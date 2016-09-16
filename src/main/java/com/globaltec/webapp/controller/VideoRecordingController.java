@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.globaltec.ConstantsVideoRobot;
-import com.globaltec.dao.GenericDao;
 import com.globaltec.model.Record;
 import com.globaltec.service.CommentManager;
 import com.globaltec.service.VideoRecordingManager;

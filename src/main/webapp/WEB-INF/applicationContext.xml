@@ -16,11 +16,17 @@
 	<bean id="recordDao" class="com.globaltec.dao.hibernate.GenericDaoHibernate">
         <constructor-arg value="com.globaltec.model.Record"/>
     </bean> 
+    
+    <bean id="recordCameraDao" class="com.globaltec.dao.hibernate.GenericDaoHibernate">
+        <constructor-arg value="com.globaltec.model.RecordCamera"/>
+    </bean>
 
     <!-- Add new Managers here -->
 	
 	<bean id="videoRecordingManager" class="com.globaltec.service.impl.XugglerVideoRecordingManagerImpl" autowire="byType">    
-	    <constructor-arg ref="recordDao"/> 
+	</bean>
+	
+	<bean id="xugglerWriter" class="com.globaltec.xuggler.XugglerWriter" autowire="byType">    
 	</bean>
     
     <!-- Configure and Alternative PasswordTokenManager -->

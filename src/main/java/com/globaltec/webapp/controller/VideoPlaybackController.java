@@ -50,7 +50,7 @@ public class VideoPlaybackController {
     	if(videoId!= null){
     		ModelAndView modelAndView = new ModelAndView();
     		
-    		Record record = videoRecordingManager.get(new Long(videoId));
+    		Record record = (Record) videoRecordingManager.get(new Long(videoId));
     		modelAndView.addObject("record", record);
     		
     		//TODO: ugly, let's change later
@@ -68,7 +68,8 @@ public class VideoPlaybackController {
     @ResponseBody public void playVideo(@RequestParam("recordId") Long recordId, HttpServletResponse response) {
         try {
         	if(recordId != null){
-	            String path = ConstantsVideoRobot.FILE_STORAGE + recordId + ".mp4";
+        		//TODO : CHANGE TEST 1!!!!!!! ->>>
+	            String path = ConstantsVideoRobot.FILE_STORAGE + recordId + "_1.mp4";
 	            File file = new File(path);
 	            response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
 	            response.setHeader("Content-Disposition", "attachment; filename="+file.getName().replace(" ", "_"));

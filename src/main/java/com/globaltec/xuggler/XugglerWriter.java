@@ -1,11 +1,8 @@
 package com.globaltec.xuggler;
 
 import java.awt.image.BufferedImage;
-import java.util.Date;
 
 import com.globaltec.ConstantsVideoRobot;
-import com.globaltec.dao.GenericDao;
-import com.globaltec.model.Record;
 import com.globaltec.model.RecordCamera;
 import com.xuggle.mediatool.IMediaReader;
 import com.xuggle.mediatool.IMediaWriter;
@@ -14,12 +11,10 @@ import com.xuggle.xuggler.IError;
 
 public class XugglerWriter {
 	
-	private GenericDao<Record, Long> recordDao;
 	private String cameraId;
 	private Long recordId;
 	
-	public XugglerWriter(GenericDao<Record, Long> recordDao, Long recordId, String cameraId){
-		this.recordDao = recordDao;
+	public XugglerWriter(Long recordId, String cameraId){
 		this.cameraId = cameraId;
 		this.recordId = recordId;
 	};
