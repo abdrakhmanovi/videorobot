@@ -1,0 +1,741 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: Arial;
+}
+body {
+  min-width: 1440px;
+}
+ul {
+  list-style: none;
+}
+p {
+  font-size: 14px;
+}
+h1,
+h2 {
+  font-size: 22px;
+}
+h1 {
+  margin-bottom: 25px;
+}
+h1.on-air span {
+  display: inline-block;
+  padding-right: 20px;
+  background: url("../images/timline_picer.png") no-repeat right top;
+}
+p {
+  font-size: 14px;
+}
+img {
+  border: none;
+}
+div {
+  box-sizing: border-box;
+}
+div.roll {
+  min-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+div.roll:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.logo {
+  width: 154px;
+  height: 66px;
+}
+.small-icon {
+  width: 24px;
+  height: 25px;
+  display: block;
+  background-size: contain;
+}
+.close {
+  background: url("../images/close.png") no-repeat;
+}
+.delete {
+  background: url("../images/del.png") no-repeat;
+}
+.plus {
+  background: url("../images/Add.png") no-repeat;
+}
+.avatar {
+  box-sizing: border-box;
+}
+.btn {
+  padding: 10px 15px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-right: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn.blue {
+  background: #55f;
+  color: #fff;
+}
+.btn.light-blue {
+  background: #10a5e0;
+  color: #fff;
+}
+.btn.gray {
+  background: #405063;
+  color: #fff;
+}
+.bordered-block {
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #e8e8e8;
+  margin-bottom: 20px;
+}
+.stream-list ul {
+  display: inline-block;
+}
+.stream-list ul li {
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+}
+.stream-list ul li .video-wrap {
+  border: 1px solid #e8e8e8;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px;
+}
+.stream-list ul li .video-wrap div {
+  background: #aaa;
+  width: 272px;
+  height: 172px;
+}
+.stream-list ul li span {
+  text-decoration: none;
+  color: #fff;
+  left: 30px;
+  bottom: 20px;
+  position: absolute;
+}
+.stream-list ul li:last-of-type {
+  margin-right: 0;
+}
+.stream-list .close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+body {
+  background: #fff;
+}
+nav {
+  height: 100px;
+  background: #0babeb;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px 0;
+  position: relative;
+}
+nav ul {
+  position: absolute;
+  left: 240px;
+  top: 5px;
+  height: 66px;
+  vertical-align: top;
+}
+nav ul li {
+  display: inline-block;
+  vertical-align: middle;
+}
+nav ul li a {
+  padding: 5px 20px 5px 50px;
+  line-height: 40px;
+  border-radius: 20px;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 16px;
+  background: transparent no-repeat 15px center;
+}
+nav ul li.active a {
+  background-color: #09689d;
+}
+nav ul li a.history {
+  background-image: url("../images/archive_ico.png");
+}
+nav ul li a.on-air {
+  background-image: url("../images/videro_ico.png");
+}
+nav ul li a.user {
+  background-image: url("../images/users_ico.png");
+}
+nav .cur-user {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  color: #fff;
+}
+nav .cur-user span,
+nav .cur-user img {
+  display: inline-block;
+  vertical-align: middle;
+}
+nav .cur-user .avatar {
+  margin-left: 10px;
+  border: 3px solid #09689d;
+  border-radius: 33px;
+  width: 66px;
+  height: 66px;
+}
+nav .logo {
+  display: inline-block;
+}
+section {
+  min-height: 450px;
+}
+section .main-content {
+  width: 80%;
+  float: left;
+  min-width: 1000px;
+}
+section .main-content .stream {
+  position: relative;
+}
+section .main-content .stream #active-stream {
+  width: 100%;
+  height: 600px;
+  background: #aaa;
+}
+section .main-content .stream .stream-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+}
+section .add-content {
+  width: 20%;
+  float: left;
+  padding-left: 20px;
+  min-width: 275px;
+}
+section .add-content .bordered-block {
+  padding: 20px 0;
+}
+section .add-content h2 {
+  margin-bottom: 20px;
+}
+section .add-content h2 .plus {
+  display: inline-block;
+  margin-left: 15px;
+}
+section .add-content ul li {
+  border-bottom: 1px solid #e8e8e8;
+  padding: 5px 0;
+}
+section .add-content ul li:last-of-type {
+  border-bottom: none;
+}
+.sub-section {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+.sub-section h1 {
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+section .add-content .active-users {
+  padding: 20px 20px;
+}
+section .active-users {
+  padding: 20px 20px;
+}
+section .active-users ul li {
+  color: #0c0c0c;
+}
+section .active-users ul li span {
+  color: #0c0c0c;
+  font-size: 18px;
+  margin-right: -0.3em;
+}
+section .active-users ul li img,
+section .active-users ul li span,
+section .active-users ul li a {
+  display: inline-block;
+  vertical-align: middle;
+}
+section .active-users ul li .avatar {
+  margin-right: 10px;
+  width: 46px;
+  height: 46px;
+  border-radius: 23px;
+}
+section .active-users ul li .delete {
+  margin-left: 10px;
+}
+section .controllers {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+}
+section .controllers > ul {
+  position: absolute;
+  height: 70px;
+  vertical-align: middle;
+}
+section .controllers > ul li {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+  line-height: 70px;
+}
+section .controllers > ul li a {
+  vertical-align: middle;
+  display: inline-block;
+  padding: 10px;
+  width: 28px;
+  height: 28px;
+  background: transparent no-repeat center;
+  border-radius: 10px;
+}
+section .controllers > ul li a:hover {
+  background-color: #09689d;
+}
+section .controllers > ul li.active a {
+  background-color: #09689d;
+}
+section .controllers .video-controls {
+  left: 10px;
+}
+section .controllers .video-controls li.play a {
+  background-image: url("../images/pause.png");
+}
+section .controllers .video-controls li.prev a {
+  background-image: url("../images/prew.png");
+}
+section .controllers .video-controls li.next a {
+  background-image: url("../images/next.png");
+}
+section .controllers .add-video-controls {
+  right: 10px;
+}
+section .controllers .add-video-controls li.volume a {
+  background-image: url("../images/volume.png");
+}
+section .controllers .add-video-controls li.to-full-screen a {
+  background-image: url("../images/zoom_video.png");
+}
+section .controllers .add-video-controls li.close-full-screen a {
+  background-image: url("../images/close-big.png");
+}
+section .controllers .social-controls {
+  left: 50%;
+  margin-left: -150px;
+  width: 300px;
+}
+section .controllers .social-controls li a {
+  width: 40px;
+  height: 40px;
+}
+section .controllers .social-controls li a.users {
+  background-image: url("../images/user.png");
+}
+section .controllers .social-controls li a.chat {
+  background-image: url("../images/chat.png");
+}
+section .controllers .social-controls li a.check {
+  background-image: url("../images/video.png");
+}
+section.full-screen {
+  background: darkgray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+section.full-screen .info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  text-align: center;
+  line-height: 80px;
+  color: #fff;
+}
+section.full-screen .info h1 {
+  position: absolute;
+  left: 10px;
+  line-height: 80px;
+  height: 80px;
+}
+section.full-screen .info a {
+  height: 80px;
+  position: absolute;
+  right: 10px;
+  top: 0;
+}
+section.full-screen .info a img {
+  display: inline-block;
+  vertical-align: middle;
+}
+section.full-screen .stream-list {
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+}
+section.full-screen .add-content {
+  position: absolute;
+  right: 30px;
+  top: 120px;
+  width: 285px;
+}
+section.full-screen .bordered-block {
+  background: white;
+}
+section.full-screen .active-users {
+  position: relative;
+  background: white;
+  box-sizing: border-box;
+}
+section.full-screen .active-users .close {
+  position: absolute;
+  right: -15px;
+  top: -15px;
+  background: white url("../images/close_black.png") no-repeat;
+  border-radius: 12px;
+  border: 1px solid white;
+}
+section.full-screen .attached {
+  background: url("../images/video_pin.png") no-repeat top;
+  padding-top: 70px;
+  position: absolute;
+  width: 70%;
+}
+section.full-screen .attached .deco {
+  background: url("../images/white_corner.png") no-repeat top;
+  width: 42px;
+  height: 21px;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  margin-left: -21px;
+}
+section .add-content .action-history {
+  overflow: auto;
+}
+section .add-content .action-history h2 {
+  padding-left: 20px;
+}
+section .add-content .action-history ul li {
+  padding: 20px;
+}
+section .add-content .action-history ul li p {
+  color: #0c0c0c;
+}
+section .add-content .action-history ul li .time-mark {
+  padding-left: 0px;
+  color: #aeaeae;
+  margin-bottom: 15px;
+}
+section .add-content .action-history ul li .time-mark span {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 15px;
+}
+section .add-content .action-history ul li .time-mark.blue span {
+  background-color: #10b9fc;
+}
+section .add-content .action-history ul li .time-mark.yellow span {
+  background-color: #fcea10;
+}
+section .add-content .action-history ul li .time-mark.margenta span {
+  background-color: #fc1088;
+}
+section .add-content .action-history ul li:first-of-type {
+  padding-top: 0;
+}
+.comment {
+  padding: 20px 20px 0px;
+}
+.comment .comment-header {
+  border-bottom: 1px solid #e8e8e8;
+  padding: 0px 0 20px;
+  margin-bottom: 15px;
+}
+.comment .avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  vertical-align: top;
+}
+.comment .user-snippet {
+  display: inline-block;
+  width: 60%;
+  margin-right: -0.3em;
+  vertical-align: top;
+}
+.comment .user-snippet > img,
+.comment .user-snippet > div {
+  display: inline-block;
+  vertical-align: middle;
+}
+.comment .user-snippet img {
+  margin-right: 10px;
+}
+.comment .user-snippet h3 {
+  margin-bottom: 10px;
+  font-size: 26px;
+  color: #0c0c0c;
+}
+.comment .user-snippet .role {
+  color: #aeaeae;
+  font-size: 18px;
+}
+.comment .action-block {
+  display: inline-block;
+  width: 40%;
+  text-align: right;
+  vertical-align: top;
+}
+.comment .action-block li {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: top;
+}
+.comment .action-block li a {
+  height: 50px;
+  width: 50px;
+  background: url("../images/temp_icon.png") no-repeat;
+  background-size: contain;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  display: inline-block;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 25px;
+}
+.comment .action-block li a:hover {
+  background-color: #e8e8e8;
+}
+.comment textarea {
+  height: 100px;
+  width: 100%;
+  border: 1px solid #aec9d3;
+  display: block;
+  margin-bottom: 15px;
+}
+.comment .btn-row {
+  margin-bottom: 15px;
+}
+.comment .content {
+  width: 100%;
+  display: inline-block;
+  vertical-align: top;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 20px;
+  margin-bottom: 15px;
+}
+.comment .content .text {
+  width: 88%;
+  margin-right: 2%;
+  display: inline-block;
+}
+.comment .content .text p {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.comment .content .text p:last-of-type {
+  padding-bottom: 0;
+}
+.padder {
+  height: 60px;
+  background: #f9f9f9;
+  margin-bottom: 20px;
+}
+.padder:after {
+  display: table;
+  content: "";
+  clear: both;
+}
+.padder a {
+  line-height: 60px;
+  text-decoration: none;
+  display: inline-block;
+}
+.padder a .back {
+  padding-left: 40px;
+}
+.padder a.search {
+  float: right;
+  width: 24px;
+  height: 60px;
+}
+.padder a.search span {
+  background: url("../images/search.png") no-repeat;
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  text-align: right;
+  margin-right: 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.padder .sub-menu {
+  display: inline-block;
+  width: 80%;
+}
+.padder .sub-menu li {
+  padding-right: 10px;
+  display: inline-block;
+}
+.padder .sub-menu li.active a {
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+}
+table.history {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.history {
+  width: 90%;
+  margin: 0 auto;
+}
+.history h2 {
+  margin-bottom: 15px;
+  margin-top: 20px;
+  font-size: 28px;
+}
+.history tr td,
+.history tr th {
+  text-align: left;
+  height: 70px;
+}
+.history tr td {
+  border-bottom: 1px solid #e8e8e8;
+  font-size: 22px;
+  vertical-align: middle;
+}
+.history tr th {
+  vertical-align: bottom;
+}
+.history tr th b {
+  font-size: 36px;
+  font-weight: 400;
+}
+.history tr th h2 {
+  font-size: 36px;
+  font-weight: 400;
+}
+.history tr th h2 .plus {
+  display: inline-block;
+  margin-left: 15px;
+}
+.history tr td.role-col {
+  width: 200px;
+}
+.history .sub-head td,
+.history th {
+  border-bottom: none;
+}
+.history .video-wrap {
+  vertical-align: middle;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.history .video-wrap div {
+  width: 70px;
+  height: 55px;
+  background: url("../images/vi_sm.png") no-repeat;
+  display: inline-block;
+  vertical-align: middle;
+}
+.history .avatar {
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 10px;
+}
+.history a {
+  text-decoration: none;
+  color: #09689d;
+}
+.login-page {
+  background: #f9f9f9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.login-page footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.login-page .roll {
+  width: 400px;
+  margin: 70px auto;
+  text-align: center;
+  min-width: auto;
+}
+.login-page form {
+  text-align: left;
+  margin-top: 45px;
+  padding: 30px;
+  box-sizing: border-box;
+  background: white;
+}
+.login-page form .row {
+  margin-bottom: 20px;
+  position: relative;
+}
+.login-page form h2 {
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.login-page form input {
+  box-sizing: border-box;
+  border: 1px solid #fff;
+  border-radius: 3px;
+}
+.login-page form input[type=text],
+.login-page form input[type=password] {
+  border: 1px solid #999;
+  width: 100%;
+  padding: 10px 5px;
+}
+.login-page form .row a {
+  position: absolute;
+  right: 10px;
+  line-height: 40px;
+  color: #1bb1ed;
+  text-decoration: none;
+  top: 0%;
+}
+.login-page form .row a.remember {
+  color: #9e9e9e;
+}
+footer {
+  background: #f9f9f9;
+  text-align: center;
+  height: 100px;
+}
+footer p {
+  line-height: 100px;
+  color: #aeaeae;
+}

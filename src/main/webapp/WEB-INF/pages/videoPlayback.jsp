@@ -2,7 +2,13 @@
 
 <head>
     <title><fmt:message key="home.title"/></title>
-    <link href="http://vjs.zencdn.net/5.10.7/video-js.css" rel="stylesheet">
+    <!--<link href="http://vjs.zencdn.net/5.10.7/video-js.css" rel="stylesheet">-->
+    
+    <title><fmt:message key="home.title"/></title>
+    <meta http-equiv="Cache-Control" content="no-cache"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta name="menu" content="Playback"/>
 </head>
 <body class="home">
 

@@ -1,5 +1,6 @@
 #macro( displayNavbarMenu $menu $count)
-  #if ($displayer.isAllowed($menu))
+
+#if ($displayer.isAllowed($menu))
     #set ($count = $count + 1)
     ## set menu title
     #set ($title = $displayer.getMessage($menu.title))
