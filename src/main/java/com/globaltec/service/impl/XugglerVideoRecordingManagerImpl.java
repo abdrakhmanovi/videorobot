@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
@@ -23,13 +28,36 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl impleme
 
 	@Autowired
 	private GenericDao<Record, Long> recordDao;
-
+	
 	@Autowired
 	private GenericDao<RecordCamera, Long> recordCameraDao;
 	
 	private List<XugglerWriter> cameraWriters = new ArrayList<>();
 	
 	private Record record = null;
+	
+	public class WriterLauncher implements Callable<RecordCamera>{
+		
+		private Long recordId;
+		
+		private String cameraId;
+		
+		public WriterLauncher(Long recordId, String cameraId){
+			this.recordId = recordId;
+			this.cameraId = cameraId;
+		}
+		
+		public RecordCamera call() throws Exception {
+			System.out.println("Initizaling camera " + cameraId + "..");
+			XugglerWriter xugglerWriter = new XugglerWriter(recordId, cameraId);
+			RecordCamera recordCamera = null;
+			recordCamera = xugglerWriter.startRecording();
+			cameraWriters.add(xugglerWriter);
+			System.out.println(System.nanoTime() + ": Camera " + cameraId + " is initialized");
+			return recordCamera;
+		}
+	}
+	
 	
 	public Record startRecording(List<String> cameraIdList, Long recordId) throws Exception {
 		if( recordId == null ){
@@ -44,23 +72,39 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl impleme
 		
 		final Long recordFinalId = recordId;
 		
-		for(final String cameraID : cameraIdList){
-			Thread t1 = new Thread(new Runnable() {
-				public void run() {
-					XugglerWriter xugglerWriter = new XugglerWriter(recordFinalId, cameraID);
-					try {
-						RecordCamera recordCamera = xugglerWriter.startRecording();
-						recordCameraDao.save(recordCamera);
-						recordDao.save(record);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					cameraWriters.add(xugglerWriter);
-					System.out.println(System.nanoTime() + ": Camera " + cameraID + " is initialized");
-				}
-			});
-			t1.start();
+		ExecutorService executor = Executors.newFixedThreadPool(cameraIdList.size());
+		List<Future<RecordCamera>> futureTaskList = new ArrayList<Future<RecordCamera>>();
+		for(final String cameraId : cameraIdList){
+//			Thread t1 = new Thread(new Runnable() {
+//				public void run() {
+//					
+//				}
+//			});
+//			t1.start();
+			
+			
+			//We use Callable here to be able to use Exceptions
+			
+			WriterLauncher writerLauncher = new WriterLauncher(recordFinalId, cameraId);
+			Future<RecordCamera> asyncResult = executor.submit(writerLauncher);
+			futureTaskList.add(asyncResult);
 		}
+		
+		for(Future<RecordCamera> futureRC : futureTaskList){
+			RecordCamera recordCamera = futureRC.get();
+			List<RecordCamera> recCameras = record.getRecordCameras();
+			if(recCameras == null){
+				recCameras = new ArrayList<RecordCamera>();
+			}
+			recCameras.add(recordCamera);
+			record.setRecordCameras(recCameras);
+			recordDao.save(record);
+			recordCamera.setRecord(record);
+			recordCameraDao.save(recordCamera);
+			System.out.println(System.nanoTime() + ": metadata saved for camera " + recordCamera.getCameraId());
+		}
+		
+		executor.shutdown();
 		return record;
 	}
 
@@ -97,6 +141,8 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl impleme
 			System.out.println("Camera " + writer.getCameraId() + " stopped");
 			writer.stopRecording();
 		}
+		cameraWriters.clear();
+		record = null;
 		return true;
 	}
 

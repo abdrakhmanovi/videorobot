@@ -1,5 +1,7 @@
 package com.globaltec.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class RecordCamera {
@@ -20,6 +24,9 @@ public class RecordCamera {
 	private String cameraURL;
 	
 	private String filePath;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date creationDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RECORD_ID", nullable = false)
@@ -56,7 +63,7 @@ public class RecordCamera {
 	}
 
 	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO) 
+	@GeneratedValue(strategy = GenerationType.TABLE) 
 	public Long getRecordCameraId() {
 		return recordCameraId;
 	}
@@ -65,6 +72,12 @@ public class RecordCamera {
 		this.recordCameraId = recordCameraId;
 	}
 	
-	
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
 	
 }

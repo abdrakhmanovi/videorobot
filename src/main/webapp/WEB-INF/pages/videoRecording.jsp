@@ -15,11 +15,11 @@ This a cameras overview page
 <c:forEach var="singleCameraURL" items="${camerasURL}">
 	<input type="checkbox" id="cameraIdToRecord" value="${singleCameraURL.key}">
 	Streaming from  ${singleCameraURL.value}<br/>
-	<embed id = "vlcRTSP${singleCameraURL.key}" type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" volume="30" autoplay="yes" controls="yes" loop="no" width="640" height="480" target="${singleCameraURL.value}" />
+	<embed id = "vlcRTSP${singleCameraURL.key}" type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" volume="30" autoplay="no" controls="yes" loop="no" width="640" height="480" target="${singleCameraURL.value}" />
 	</br>
 </c:forEach>
 
-<input type="hidden" id="cameraIdToRecord">
+<input type="hidden" id="cameraIdArray">
 
 <input type="button" onClick="verifyCheckboxes();">
 <input type="button" onClick="getVLCTime();">
@@ -54,9 +54,10 @@ This a cameras overview page
 		cameraListVariable = "";
 		$("#cameraIdToRecord:checked").each(function(){
 			cameraListVariable = cameraListVariable + $(this).val() + "_";
+			
 		});
 		if(cameraListVariable != ""){
-			$("#cameraIdToRecord").val(cameraListVariable);
+			$("#cameraIdArray").val(cameraListVariable);
 			showProgress();
 			startRecording();
 		} else {
@@ -110,7 +111,7 @@ This a cameras overview page
 		$.ajax({
 		    url: "/videoRecording/startRecording",
 			type: "POST",
-			data: "cameraIdToRecord=" + $("#cameraIdToRecord").val(),
+			data: "cameraIdToRecord=" + $("#cameraIdArray").val(),
 		    success: function(response) {
 		    	displayRecordingControls();
 		    	if(!response.isSuccessful){

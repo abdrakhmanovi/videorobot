@@ -31,7 +31,7 @@ public class Record extends BaseObject implements Serializable {
 	private List<RecordCamera> recordCameras;
 
 	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO) 
+	@GeneratedValue(strategy = GenerationType.TABLE) 
 	public Long getId() {
 		return id;
 	}

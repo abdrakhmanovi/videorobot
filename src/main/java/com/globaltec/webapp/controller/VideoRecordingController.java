@@ -73,6 +73,7 @@ public class VideoRecordingController {
 			e.printStackTrace();
 			returnObject.put("errorMessage", e.getMessage());
 			returnObject.put("isSuccessful", false);
+			stopRecording();
 			return returnObject;
 		}
     	returnObject.put("isSuccessful", true);

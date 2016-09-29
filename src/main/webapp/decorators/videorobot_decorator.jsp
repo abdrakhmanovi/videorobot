@@ -19,9 +19,9 @@
    	<nav>
     	<div class="roll">
 	       <img class="logo" src="/images/vr/logo_white.png"/>
-	       <%@ include file="/common/videorobot_menu.jsp" %> -->
+	       <%@ include file="/common/videorobot_menu.jsp" %>
 	       <div class="cur-user">
-	           <span>Константин Константинович</span>
+	       	   <span><c:out value="${pageContext.request.remoteUser}" escapeXml="true"/></span>
 	           <img src="/images/vr/kursant_ico.png" class="avatar"/>
 	       </div>
        </div>

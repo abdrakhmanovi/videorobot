@@ -1,6 +1,7 @@
 package com.globaltec.xuggler;
 
 import java.awt.image.BufferedImage;
+import java.util.Date;
 
 import com.globaltec.ConstantsVideoRobot;
 import com.globaltec.model.RecordCamera;
@@ -39,6 +40,7 @@ public class XugglerWriter {
 		try {
 			err = reader.readPacket();
 		} catch (Exception e) {
+			closeStreams();
 			throw(e);
 		}
 		if (err != null) {
@@ -67,6 +69,7 @@ public class XugglerWriter {
 			recordCamera.setCameraId(cameraId);
 			recordCamera.setCameraURL(cameraURL);
 			recordCamera.setFilePath(filePath);
+			recordCamera.setCreationDate(new Date());
 			return recordCamera;
 		}
 	}

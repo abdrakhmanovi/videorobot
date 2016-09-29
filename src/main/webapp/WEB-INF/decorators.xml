@@ -8,4 +8,7 @@
     <decorator name="default" page="videorobot_decorator.jsp">
         <pattern>/*</pattern>
     </decorator>
+    <decorator name="login" page="videorobot_login.jsp">
+        <pattern>/login</pattern>
+    </decorator>
 </decorators>
