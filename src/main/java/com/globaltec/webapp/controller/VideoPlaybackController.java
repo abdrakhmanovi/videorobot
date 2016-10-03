@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.globaltec.ConstantsVideoRobot;
 import com.globaltec.model.Record;
+import com.globaltec.model.RecordCamera;
 import com.globaltec.service.CommentManager;
 import com.globaltec.service.VideoRecordingManager;
 import com.globaltec.service.impl.SubtitleCommentManagerImpl;
@@ -35,6 +39,8 @@ public class VideoPlaybackController {
 	String fileStoragePath;
 	String recordId;
 	
+	private static final Logger logger = Logger.getLogger(VideoPlaybackController.class);
+	
 	@Autowired
 	private VideoRecordingManager videoRecordingManager;
 	
@@ -46,8 +52,9 @@ public class VideoPlaybackController {
     	fileStoragePath = ConstantsVideoRobot.FILE_STORAGE;
     	
     	String videoId = request.getParameter("videoId");
+    	String recordId = request.getParameter("recordId");
     	
-    	if(videoId!= null){
+    	if(recordId!= null){
     		ModelAndView modelAndView = new ModelAndView();
     		
     		Record record = (Record) videoRecordingManager.get(new Long(videoId));
@@ -60,8 +67,24 @@ public class VideoPlaybackController {
     		return modelAndView;
     	} else {
     		List<Record> records = videoRecordingManager.getAll();
-            return new ModelAndView().addObject("recordsList", records);
+            return new ModelAndView().addObject("records", records);
     	}
+    	
+//    	if(videoId!= null){
+//    		ModelAndView modelAndView = new ModelAndView();
+//    		
+//    		Record record = (Record) videoRecordingManager.get(new Long(videoId));
+//    		modelAndView.addObject("record", record);
+//    		
+//    		//TODO: ugly, let's change later
+//    		commentManager = new SubtitleCommentManagerImpl(record);
+//    		List<SRT> subtitles = commentManager.getCommentsByRecordId(record.getId());    		
+//    		modelAndView.addObject("subtitles", subtitles);
+//    		return modelAndView;
+//    	} else {
+//    		List<Record> records = videoRecordingManager.getAll();
+//            return new ModelAndView().addObject("recordsList", records);
+//    	}
     }
     
     @RequestMapping(value = "/playVideo", method = RequestMethod.GET)

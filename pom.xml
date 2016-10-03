@@ -87,7 +87,6 @@
 		<version>5.4</version>
 	</dependency>
 
-
     </dependencies>
 
     <properties>
@@ -103,13 +102,12 @@
         <hibernate.dialect>org.hibernate.dialect.PostgreSQLDialect</hibernate.dialect>
         <jdbc.groupId>postgresql</jdbc.groupId>
         <jdbc.artifactId>postgresql</jdbc.artifactId>
-	<jdbc.version>9.1-901.jdbc4</jdbc.version> 
+		<jdbc.version>9.1-901.jdbc4</jdbc.version> 
         <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
         <jdbc.url><![CDATA[jdbc:postgresql://localhost/${db.name}]]></jdbc.url>
         <jdbc.username>postgres</jdbc.username>
         <jdbc.password>postgres</jdbc.password>
         <jdbc.validationQuery><![CDATA[SELECT 1 + 1]]></jdbc.validationQuery>
-
     </properties>
 
     <profiles>

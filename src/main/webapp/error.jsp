@@ -13,6 +13,7 @@
         <%@ include file="/common/messages.jsp" %>
 
         <p><fmt:message key="errorPage.message"/></p>
+        
     </div>
 </body>
 </html>

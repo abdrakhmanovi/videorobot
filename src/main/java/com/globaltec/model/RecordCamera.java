@@ -28,7 +28,7 @@ public class RecordCamera {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date creationDate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "RECORD_ID", nullable = false)
 	public Record getRecord() {
 		return record;

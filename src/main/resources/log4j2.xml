@@ -19,12 +19,15 @@
         <Logger name="com.opensymphony.xwork2.util.OgnlUtil" level="error"/>
         <Logger name="com.opensymphony.xwork2.ognl.OgnlValueStack" level="error"/>
         <Logger name="org.dbunit" level="warn"/>
-        <Logger name="org.hibernate" level="warn"/>
+        <Logger name="org.hibernate" level="debug"/>
         <!-- Uncomment if you want to see Hibernate's SQL -->
-        <!--<Logger name="org.hibernate.SQL" level="debug"/>-->
+        <Logger name="org.hibernate.SQL" level="debug"/>
         <Logger name="org.springframework" level="warn"/>
         <Logger name="com.globaltec" level="debug"/>
         <Logger name="com.globaltec.tool" level="info"/>
+        <logger category="org.hibernate">
+     		<level name="TRACE"/>
+		</logger>
 
         <Root level="warn">
             <AppenderRef ref="Console" />

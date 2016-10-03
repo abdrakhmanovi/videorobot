@@ -14,23 +14,16 @@
 
 	This a playback
 	</br>
-	
-	<c:if test="${not empty recordsList}">
-		<ul>
-			<c:forEach var="record" items="${recordsList}">
-				<li>
-					<c:choose>
-					    <c:when test="${record.videoFound}">
-					    	<a href="/videoPlayback?videoId=${record.id}">${record.name}</a> ${record.creationDate}
-					    </c:when>    
-					    <c:otherwise>
-					    	${record.name} ${record.creationDate} (video not found in file storage)
-					    </c:otherwise>
-				    </c:choose>
-				</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+
+	<c:forEach var="record" items="${records}">
+		${record.id} - ${record.creationDate}
+		</br>
+		<c:forEach var="recordCamera" items="${record.recordCameras}">
+		&nbsp;&nbsp;<a href="/videoPlayback?recordCamera=${recordCamera.recordCameraId}">${recordCamera.recordCameraId} - ${recordCamera.creationDate}</a></br>
+		</c:forEach>
+		
+	</c:forEach>
+
 	
 	<c:if test="${not empty record}">
 		<video id="videoContainer" width="320" height="240" controls> 

@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -67,7 +68,7 @@ public class Record extends BaseObject implements Serializable {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return (this.id).toString();
 	}
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "record")
@@ -94,5 +95,5 @@ public class Record extends BaseObject implements Serializable {
 	public void addRecordCamera(RecordCamera recordCamera){
 		recordCameras.add(recordCamera);
 	}
-	
+
 }
