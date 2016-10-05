@@ -37,32 +37,36 @@ import com.globaltec.util.srt.SRTInfo;
 public class VideoPlaybackController {
 
 	String fileStoragePath;
-	String recordId;
+	
 	
 	private static final Logger logger = Logger.getLogger(VideoPlaybackController.class);
 	
 	@Autowired
 	private VideoRecordingManager videoRecordingManager;
 	
-	private CommentManager commentManager;
+	private CommentManager commentManager = null;
 	
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest(HttpServletRequest request) throws Exception {
     	//Initialize all the variables
     	fileStoragePath = ConstantsVideoRobot.FILE_STORAGE;
     	
-    	String videoId = request.getParameter("videoId");
+    	String cameraId = request.getParameter("cameraId");
     	String recordId = request.getParameter("recordId");
+    	
+    	
     	
     	if(recordId!= null){
     		ModelAndView modelAndView = new ModelAndView();
     		
-    		Record record = (Record) videoRecordingManager.get(new Long(videoId));
-    		modelAndView.addObject("record", record);
+    		Record record = (Record) videoRecordingManager.get(new Long(recordId));
+    		commentManager = new SubtitleCommentManagerImpl(record);
     		
     		//TODO: ugly, let's change later
-    		commentManager = new SubtitleCommentManagerImpl(record);
     		List<SRT> subtitles = commentManager.getCommentsByRecordId(record.getId());    		
+    		
+    		modelAndView.addObject("recordId", recordId);
+    		modelAndView.addObject("cameraId", cameraId);
     		modelAndView.addObject("subtitles", subtitles);
     		return modelAndView;
     	} else {
@@ -70,29 +74,14 @@ public class VideoPlaybackController {
             return new ModelAndView().addObject("records", records);
     	}
     	
-//    	if(videoId!= null){
-//    		ModelAndView modelAndView = new ModelAndView();
-//    		
-//    		Record record = (Record) videoRecordingManager.get(new Long(videoId));
-//    		modelAndView.addObject("record", record);
-//    		
-//    		//TODO: ugly, let's change later
-//    		commentManager = new SubtitleCommentManagerImpl(record);
-//    		List<SRT> subtitles = commentManager.getCommentsByRecordId(record.getId());    		
-//    		modelAndView.addObject("subtitles", subtitles);
-//    		return modelAndView;
-//    	} else {
-//    		List<Record> records = videoRecordingManager.getAll();
-//            return new ModelAndView().addObject("recordsList", records);
-//    	}
     }
     
     @RequestMapping(value = "/playVideo", method = RequestMethod.GET)
-    @ResponseBody public void playVideo(@RequestParam("recordId") Long recordId, HttpServletResponse response) {
+    @ResponseBody public void playVideo(@RequestParam("recordId") Long recordId, @RequestParam("cameraId") Long cameraId, HttpServletResponse response) {
         try {
-        	if(recordId != null){
+        	if(recordId != null & cameraId != null){
         		//TODO : CHANGE TEST 1!!!!!!! ->>>
-	            String path = ConstantsVideoRobot.FILE_STORAGE + recordId + "_1.mp4";
+	            String path = ConstantsVideoRobot.FILE_STORAGE + recordId + "_" + cameraId + ".mp4";
 	            File file = new File(path);
 	            response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
 	            response.setHeader("Content-Disposition", "attachment; filename="+file.getName().replace(" ", "_"));

@@ -41,8 +41,10 @@ public class VideoRecordingController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest() throws Exception {
     	setConstants();
-
-        return new ModelAndView().addObject("camerasURL", camerasURL);
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.addObject("camerasURL", camerasURL);
+    	modelAndView.addObject("columns", ConstantsVideoRobot.columns);
+        return modelAndView;
     }
     
     @RequestMapping("/startRecording")

@@ -739,3 +739,8 @@ footer p {
   line-height: 100px;
   color: #aeaeae;
 }
+
+div.vr_container{
+	padding-left: 15px;
+	padding-right: 15px;
+}

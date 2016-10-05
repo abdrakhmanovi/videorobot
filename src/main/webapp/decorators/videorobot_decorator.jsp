@@ -28,7 +28,7 @@
     </nav>
     
 
-    <div class="container" id="content">
+    <div class="vr_container" id="content">
         <%@ include file="/common/messages.jsp" %>
         <div class="row">
             <decorator:body/>
@@ -42,8 +42,8 @@
             </c:if>
         </div>
     </div>
-
-    <div id="footer" class="container navbar-fixed-bottom">
+    </br>
+    <div id="footer" class="container">
         <span class="col-sm-6 text-left"><fmt:message key="webapp.version"/>
             <c:if test="${pageContext.request.remoteUser != null}">
             | <fmt:message key="user.status"/> ${pageContext.request.remoteUser}
