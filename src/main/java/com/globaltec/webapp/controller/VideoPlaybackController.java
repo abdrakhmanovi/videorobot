@@ -6,13 +6,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -38,9 +35,6 @@ public class VideoPlaybackController {
 
 	String fileStoragePath;
 	
-	
-	private static final Logger logger = Logger.getLogger(VideoPlaybackController.class);
-	
 	@Autowired
 	private VideoRecordingManager videoRecordingManager;
 	
@@ -54,11 +48,9 @@ public class VideoPlaybackController {
     	String cameraId = request.getParameter("cameraId");
     	String recordId = request.getParameter("recordId");
     	
-    	
+    	ModelAndView modelAndView = new ModelAndView();
     	
     	if(recordId!= null){
-    		ModelAndView modelAndView = new ModelAndView();
-    		
     		Record record = (Record) videoRecordingManager.get(new Long(recordId));
     		commentManager = new SubtitleCommentManagerImpl(record);
     		
@@ -71,7 +63,8 @@ public class VideoPlaybackController {
     		return modelAndView;
     	} else {
     		List<Record> records = videoRecordingManager.getAll();
-            return new ModelAndView().addObject("records", records);
+    		modelAndView.addObject("records", records);
+            return modelAndView;
     	}
     	
     }

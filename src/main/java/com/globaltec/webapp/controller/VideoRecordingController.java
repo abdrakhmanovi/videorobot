@@ -43,7 +43,7 @@ public class VideoRecordingController {
     	setConstants();
     	ModelAndView modelAndView = new ModelAndView();
     	modelAndView.addObject("camerasURL", camerasURL);
-    	modelAndView.addObject("columns", ConstantsVideoRobot.columns);
+    	modelAndView.addObject("columns", ConstantsVideoRobot.COLUMNS_COUNT);
         return modelAndView;
     }
     

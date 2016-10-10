@@ -11,39 +11,61 @@
 
 <section>
 <div class="roll">
-<div class="sub-section">
 
+	<h1 class="on-air">
+		This a cameras overview page
+	</h1>
 
-	This a cameras overview page
-	</br></br></br>
 	
-	<c:forEach var="singleCameraURL" items="${camerasURL}">
-		<input type="checkbox" id="cameraIdToRecord" value="${singleCameraURL.key}">
-		Streaming from  ${singleCameraURL.value}<br/>
-		<embed id = "vlcRTSP${singleCameraURL.key}" type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" volume="30" autoplay="no" controls="yes" loop="no" width="640" height="480" target="${singleCameraURL.value}" />
-		</br>
+    <c:set var="currentColumn" value="${0}"/>
+    <c:set var="currentlyDisplayed" value="${0}"/>
+    
+    <div style="margin-left: 30px;">
+    <div class="stream-list">
+    <ul>
+    <c:forEach var="singleCameraURL" items="${camerasURL}">
+    	<li>
+		    <div class="video-wrap">
+		    	<input type="checkbox" id="cameraIdToRecord" value="${singleCameraURL.key}"> &nbsp;${singleCameraURL.value}
+		        <div>
+		            <embed id = "vlcRTSP${singleCameraURL.key}" type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" volume="0" autoplay="yes" controls="yes" loop="no" width="272" height="172" target="${singleCameraURL.value}" />
+		        </div>
+		    </div>
+		</li>
+		<c:set var="currentColumn" value="${currentColumn+1}"/>
+		<c:set var="currentlyDisplayed" value="${currentlyDisplayed+1}"/>
+		<c:if test="${currentColumn == columns || currentlyDisplayed >= fn:length(camerasURL)}">
+			</ul>
+			</div>
+			<c:if test="${currentlyDisplayed < fn:length(camerasURL)}">
+				<div class="stream-list">
+				<ul>
+			</c:if>
+			<c:set var="currentColumn" value="${0}"/>
+		</c:if>
 	</c:forEach>
-	
+	</div>
+		
 	<input type="hidden" id="cameraIdArray">
 	
-	<input type="button" onClick="verifyCheckboxes();">
-	<input type="button" onClick="getVLCTime();">
-		
-		
-	<br/>
-	<input id="recordingStartButton" type="button" value="Start recording" onClick="verifyCheckboxes();"/>
-	<input id="recordingStopButton" type="button" value="Stop recording" onClick="showProgress(); stopRecording();" style="display:none;"/>
+	<br/>		
+	
+	<input class="btn blue" id="recordingStartButton" type="button" value="Start recording" onClick="verifyCheckboxes();"/>
+	<input class="btn blue" id="recordingStopButton" type="button" value="Stop recording" onClick="showProgress(); stopRecording();" style="display:none;"/>
 	<img src="/images/loading.gif" style="width:20px;display:none;" id="loading_gif"/>
 	<img src="/images/recording.gif" style="width:20px;display:none;" id="recording_gif" style="display:none;"/>
 	</br></br>
 	
-	<div id="comment_area" style="display:none;"> 
-		<form id="comment_form">
-			Enter your comment:</br>
-			<TEXTAREA WRAP="virtual" COLS="40" ROWS="3" id="commentText"></TEXTAREA></br>
-			<input id="commentButton" type="button" value="Send comment" onClick="commentFormSubmit();"/>
-			<input id="recordId" type="hidden" value=""/>
-		</form>
+	
+	<div id="comment_area" style="display:none;" class="bordered-block">
+		<div class="new-comment comment">
+			<form id="comment_form">
+				Enter your comment:</br>
+				<TEXTAREA WRAP="virtual" COLS="40" ROWS="3" id="commentText"></TEXTAREA></br>
+				<input id="commentButton" class="btn blue"type="button" value="Send comment" onClick="commentFormSubmit();"/>
+				<input id="recordId" type="hidden" value=""/>
+			</form>
+		</div>
 	</div>
 	
 	<script>
@@ -154,7 +176,7 @@
 		};
 	
 	</script>
-</div>
+
 </div>
 </section>
 

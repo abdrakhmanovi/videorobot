@@ -23,5 +23,5 @@ public class ConstantsVideoRobot {
 //        put("4", "rtsp://localhost:554/");
     }};
     
-    public static final int columns = 2;
+    public static final int COLUMNS_COUNT = 2;
 }
