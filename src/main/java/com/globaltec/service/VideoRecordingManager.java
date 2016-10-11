@@ -11,5 +11,7 @@ public interface VideoRecordingManager extends GenericManager {
 	public boolean stopRecording();
 	
 	public Record get(Long recordId);
+	
+	public List<Record> getActiveRecords();
 
 }

@@ -13,8 +13,7 @@
 
     <!-- Add new DAOs here -->
 	
-	<bean id="recordDao" class="com.globaltec.dao.hibernate.GenericDaoHibernate">
-        <constructor-arg value="com.globaltec.model.Record"/>
+	<bean id="recordDao" class="com.globaltec.dao.hibernate.RecordDaoHibernate">
     </bean> 
     
     <bean id="recordCameraDao" class="com.globaltec.dao.hibernate.GenericDaoHibernate">

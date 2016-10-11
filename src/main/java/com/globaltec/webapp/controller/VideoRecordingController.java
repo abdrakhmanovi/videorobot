@@ -111,6 +111,18 @@ public class VideoRecordingController {
     	return returnObject;
    	}
     
+    @RequestMapping("/checkRecordingStatus")
+    @ResponseBody
+    @Async
+    public boolean checkRecordingStatus() {
+    	List<Record> records = videoRecordingManager.getActiveRecords();
+    	if(records.size()>0){
+    		return true;
+    	} else {
+    		return false;
+    	}
+   	}
+    
     //TODO: Deal with constants
     private void setConstants(){
     	camerasURL = ConstantsVideoRobot.CAMERAS_URL_LIST;

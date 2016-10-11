@@ -9,15 +9,16 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.globaltec.ConstantsVideoRobot;
 import com.globaltec.dao.GenericDao;
+import com.globaltec.dao.RecordDao;
 import com.globaltec.model.Record;
 import com.globaltec.model.RecordCamera;
 import com.globaltec.service.VideoRecordingManager;
@@ -25,17 +26,19 @@ import com.globaltec.xuggler.XugglerWriter;
 
 @Service("videoRecordingManager")
 public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl implements VideoRecordingManager{
-
+	
 	@Autowired
-	private GenericDao<Record, Long> recordDao;
+	private RecordDao recordDao;
 	
 	@Autowired
 	private GenericDao<RecordCamera, Long> recordCameraDao;
 	
 	private List<XugglerWriter> cameraWriters = new ArrayList<>();
 	
-	private Record record = null;
+	private String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 	
+	private Record record = null;
+		
 	public class WriterLauncher implements Callable<RecordCamera>{
 		
 		private Long recordId;
@@ -75,16 +78,7 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl impleme
 		ExecutorService executor = Executors.newFixedThreadPool(cameraIdList.size());
 		List<Future<RecordCamera>> futureTaskList = new ArrayList<Future<RecordCamera>>();
 		for(final String cameraId : cameraIdList){
-//			Thread t1 = new Thread(new Runnable() {
-//				public void run() {
-//					
-//				}
-//			});
-//			t1.start();
-			
-			
-			//We use Callable here to be able to use Exceptions
-			
+			//We use Callable here to be able to use Exceptions			
 			WriterLauncher writerLauncher = new WriterLauncher(recordFinalId, cameraId);
 			Future<RecordCamera> asyncResult = executor.submit(writerLauncher);
 			futureTaskList.add(asyncResult);
@@ -98,6 +92,8 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl impleme
 			}
 			recCameras.add(recordCamera);
 			record.setRecordCameras(recCameras);
+			record.setActive(true);
+			record.setUserName(userName);
 			recordDao.save(record);
 			recordCamera.setRecord(record);
 			recordCameraDao.save(recordCamera);
@@ -142,8 +138,14 @@ public class XugglerVideoRecordingManagerImpl extends GenericManagerImpl impleme
 			writer.stopRecording();
 		}
 		cameraWriters.clear();
+		record.setActive(false);
+		recordDao.save(record);
 		record = null;
 		return true;
 	}
 
+	@Override
+	public List<Record> getActiveRecords(){
+		return recordDao.findActiveByUserName(userName);
+	}
 }

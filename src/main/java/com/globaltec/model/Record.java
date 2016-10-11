@@ -30,6 +30,10 @@ public class Record extends BaseObject implements Serializable {
 	private Date creationDate; 
 	
 	private List<RecordCamera> recordCameras;
+	
+	private String userName;
+	
+	private boolean active;
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.TABLE) 
@@ -92,6 +96,22 @@ public class Record extends BaseObject implements Serializable {
 		return 0;
 	}
 	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	public void addRecordCamera(RecordCamera recordCamera){
 		recordCameras.add(recordCamera);
 	}

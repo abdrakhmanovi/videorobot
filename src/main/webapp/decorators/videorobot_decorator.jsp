@@ -20,7 +20,11 @@
     	<div class="roll">
 	       <img class="logo" src="/images/vr/logo_white.png"/>
 	       <%@ include file="/common/videorobot_menu.jsp" %>
+	       
 	       <div class="cur-user">
+	       record-icon.png
+	       	   <img src="/images/vr/record_icon.png"/>
+	       	   &nbsp;&nbsp;&nbsp;
 	       	   <span><c:out value="${pageContext.request.remoteUser}" escapeXml="true"/></span>
 	           <img src="/images/vr/kursant_ico.png" class="avatar"/>
 	       </div>
