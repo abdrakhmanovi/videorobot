@@ -146,7 +146,8 @@
 			    		alert(response.errorMessage);
 			    	} else{
 			    		$("#recording_gif").show();
-			    	}
+			    	};
+			    	checkRecordingStatus();
 			    },
 			    error: function(jqXHR, textStatus, errorThrown) {
 			    	hideRecordingControls();
@@ -166,6 +167,7 @@
 			    	if(!response.isSuccessful){
 			    		alert(response.errorMessage);
 			    	}
+			    	checkRecordingStatus();
 			    },
 			    error: function(jqXHR, textStatus, errorThrown) {
 			    	hideRecordingControls();

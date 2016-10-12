@@ -11,6 +11,48 @@
     <title><decorator:title/> | <fmt:message key="webapp.name"/></title>
     <t:assets type="css"/>
     <decorator:head/>
+    
+    <script>
+    
+    
+    function checkRecordingStatus(){
+        $.ajax({
+        	type: 'POST',
+        	url: '/videoRecording/checkRecordingStatus',
+        	success: function(data) {
+        		if(data){
+        			if (typeof displayRecordingControls !== 'undefined' && $.isFunction(displayRecordingControls)) {
+        				displayRecordingControls();
+        			}
+        			
+        			$("#record-sign").fadeIn(400);
+        			$("#record-sign").css({
+        				'width' : '30px'
+        			});
+        			
+        		} else {
+        			$("#record-sign").fadeOut(400);
+        			if (typeof hideRecordingControls !== 'undefined' && $.isFunction(hideRecordingControls)) {
+        				hideRecordingControls();
+        			}
+        		}
+        	},
+        	error: function(jqXHR, textStatus, errorThrown) {
+        		alert(jqXHR.status + " - " + errorThrown + " - " + jqXHR.responseText);
+        	},
+        	complete: function() {
+        		// Schedule the next request when the current one's complete
+        	    setTimeout(checkRecordingStatus, 10000);
+        	}
+        });
+	};
+	
+	window.onload = function() {
+		checkRecordingStatus();
+	}
+	
+	</script>
+    
 </head>
 <body<decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty property="body.class" writeEntireProperty="true"/>>
    <c:set var="currentMenu" scope="request"><decorator:getProperty property="meta.menu"/></c:set>
@@ -22,8 +64,7 @@
 	       <%@ include file="/common/videorobot_menu.jsp" %>
 	       
 	       <div class="cur-user">
-	       record-icon.png
-	       	   <img src="/images/vr/record_icon.png"/>
+	       	   <img id="record-sign" style="display:none;" src="/images/vr/record-icon.png" style="width: 30px;"/>
 	       	   &nbsp;&nbsp;&nbsp;
 	       	   <span><c:out value="${pageContext.request.remoteUser}" escapeXml="true"/></span>
 	           <img src="/images/vr/kursant_ico.png" class="avatar"/>
