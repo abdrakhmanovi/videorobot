@@ -42,7 +42,7 @@
         	},
         	complete: function() {
         		// Schedule the next request when the current one's complete
-        	    setTimeout(checkRecordingStatus, 10000);
+        	    setTimeout(checkRecordingStatus, 30000);
         	}
         });
 	};
