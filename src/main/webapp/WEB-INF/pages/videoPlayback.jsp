@@ -9,6 +9,27 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
     <meta name="menu" content="Playback"/>
+    
+    		<script>
+				
+				function moveToPoint(point){
+					var mediaElement = document.getElementById("videoContainer");
+					mediaElement.pause(); 
+					mediaElement.currentTime = point;
+					mediaElement.play();
+				}
+				
+				function printHumanReadableTime(totalSec){
+					totalSec = Math.round(totalSec);
+					var hours = parseInt( totalSec / 3600 ) % 24;
+					var minutes = parseInt( totalSec / 60 ) % 60;
+					var seconds = totalSec % 60;
+					var result = (hours < 10 ? "0" + hours : hours) + "-" + (minutes < 10 ? "0" + minutes : minutes) + "-" + (seconds  < 10 ? "0" + seconds : seconds);
+					alert(result);
+				}
+
+			</script>
+    
 </head>
 <body>
 
@@ -21,15 +42,45 @@
 			<h1 class="on-air">
 		    	<fmt:message key="vr.chooseCamera"/>
 		    </h1>
-	
+		    
+			
+			<table class="history">
+	            <tr>
+	                <th>Archive</th>
+	                <th>Date</th>
+	                <th>Length</th>
+	            </tr>
+			
 			<c:forEach var="record" items="${records}">
-				${record.id} - ${record.creationDate}
+			
+				<tr class="sub-head">
+	                <td colspan="3">
+	                    ${record.id} - ${record.creationDate}
+	                </td>
+	            </tr>
+			
+				
 				</br>
 				<c:forEach var="recordCamera" items="${record.recordCameras}">
-					&nbsp;&nbsp;<a href="/videoPlayback?recordId=${record.id}&cameraId=${recordCamera.cameraId}">${recordCamera.cameraId} - ${recordCamera.creationDate}</a></br>
+				
+					<tr>
+		                <td>
+		                    <div class="video-wrap">
+		                        <div></div>
+		                    </div>
+		                    <a href="/videoPlayback?recordId=${record.id}&cameraId=${recordCamera.cameraId}">${recordCamera.cameraId}</a>
+		                </td>
+		                <td>
+		                    <a href="/videoPlayback?recordId=${record.id}&cameraId=${recordCamera.cameraId}">${recordCamera.creationDate}</a>
+		                </td>
+		                <td>
+		                    <a href="/videoPlayback?recordId=${record.id}&cameraId=${recordCamera.cameraId}">${recordCamera.cameraId} - ${recordCamera.creationDate}</a>
+		                </td>
+		            </tr>
 				</c:forEach>
-			
 			</c:forEach>
+			</table>
+			
 		</c:if>
 		
 		<c:if test="${not empty recordId}">
@@ -55,27 +106,7 @@
 						</c:forEach>
 		            </ul>
 		        </div>
-		    </div>
-			
-			<script>
-				
-				function moveToPoint(point){
-					var mediaElement = document.getElementById("videoContainer");
-					mediaElement.pause(); 
-					mediaElement.currentTime = point;
-					mediaElement.play();
-				}
-				
-				function printHumanReadableTime(totalSec){
-					totalSec = Math.round(totalSec);
-					var hours = parseInt( totalSec / 3600 ) % 24;
-					var minutes = parseInt( totalSec / 60 ) % 60;
-					var seconds = totalSec % 60;
-					var result = (hours < 10 ? "0" + hours : hours) + "-" + (minutes < 10 ? "0" + minutes : minutes) + "-" + (seconds  < 10 ? "0" + seconds : seconds);
-					alert(result);
-				}
-
-			</script>
+		    </div>	
 
 		</c:if>
 		

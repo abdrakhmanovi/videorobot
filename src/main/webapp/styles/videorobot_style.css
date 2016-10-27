@@ -22,7 +22,7 @@ h1 {
 h1.on-air span {
   display: inline-block;
   padding-right: 20px;
-  background: url("../images/timline_picer.png") no-repeat right top;
+  background: url("/images/vr/timline_picer.png") no-repeat right top;
 }
 p {
   font-size: 14px;
@@ -55,13 +55,13 @@ div.roll:after {
   background-size: contain;
 }
 .close {
-  background: url("../images/close.png") no-repeat;
+  background: url("/images/vr/close.png") no-repeat;
 }
 .delete {
-  background: url("../images/del.png") no-repeat;
+  background: url("/images/vr/del.png") no-repeat;
 }
 .plus {
-  background: url("../images/Add.png") no-repeat;
+  background: url("/images/vr/Add.png") no-repeat;
 }
 .avatar {
   box-sizing: border-box;
@@ -164,13 +164,13 @@ nav ul li.active a {
   background-color: #09689d;
 }
 nav ul li a.history {
-  background-image: url("../images/archive_ico.png");
+  background-image: url("/images/vr/archive_ico.png");
 }
 nav ul li a.on-air {
-  background-image: url("../images/videro_ico.png");
+  background-image: url("/images/vr/videro_ico.png");
 }
 nav ul li a.user {
-  background-image: url("../images/users_ico.png");
+  background-image: url("/images/vr/users_ico.png");
 }
 nav .cur-user {
   position: absolute;
@@ -316,25 +316,25 @@ section .controllers .video-controls {
   left: 10px;
 }
 section .controllers .video-controls li.play a {
-  background-image: url("../images/pause.png");
+  background-image: url("/images/vr/pause.png");
 }
 section .controllers .video-controls li.prev a {
-  background-image: url("../images/prew.png");
+  background-image: url("/images/vr/prew.png");
 }
 section .controllers .video-controls li.next a {
-  background-image: url("../images/next.png");
+  background-image: url("/images/vr/next.png");
 }
 section .controllers .add-video-controls {
   right: 10px;
 }
 section .controllers .add-video-controls li.volume a {
-  background-image: url("../images/volume.png");
+  background-image: url("/images/vr/volume.png");
 }
 section .controllers .add-video-controls li.to-full-screen a {
-  background-image: url("../images/zoom_video.png");
+  background-image: url("/images/vr/zoom_video.png");
 }
 section .controllers .add-video-controls li.close-full-screen a {
-  background-image: url("../images/close-big.png");
+  background-image: url("/images/vr/close-big.png");
 }
 section .controllers .social-controls {
   left: 50%;
@@ -346,13 +346,13 @@ section .controllers .social-controls li a {
   height: 40px;
 }
 section .controllers .social-controls li a.users {
-  background-image: url("../images/user.png");
+  background-image: url("/images/vr/user.png");
 }
 section .controllers .social-controls li a.chat {
-  background-image: url("../images/chat.png");
+  background-image: url("/images/vr/chat.png");
 }
 section .controllers .social-controls li a.check {
-  background-image: url("../images/video.png");
+  background-image: url("/images/vr/video.png");
 }
 section.full-screen {
   background: darkgray;
@@ -411,18 +411,18 @@ section.full-screen .active-users .close {
   position: absolute;
   right: -15px;
   top: -15px;
-  background: white url("../images/close_black.png") no-repeat;
+  background: white url("/images/vr/close_black.png") no-repeat;
   border-radius: 12px;
   border: 1px solid white;
 }
 section.full-screen .attached {
-  background: url("../images/video_pin.png") no-repeat top;
+  background: url("/images/vr/video_pin.png") no-repeat top;
   padding-top: 70px;
   position: absolute;
   width: 70%;
 }
 section.full-screen .attached .deco {
-  background: url("../images/white_corner.png") no-repeat top;
+  background: url("/images/vr/white_corner.png") no-repeat top;
   width: 42px;
   height: 21px;
   position: absolute;
@@ -517,7 +517,7 @@ section .add-content .action-history ul li:first-of-type {
 .comment .action-block li a {
   height: 50px;
   width: 50px;
-  background: url("../images/temp_icon.png") no-repeat;
+  background: url("/images/vr/temp_icon.png") no-repeat;
   background-size: contain;
   text-decoration: none;
   color: black;
@@ -584,7 +584,7 @@ section .add-content .action-history ul li:first-of-type {
   height: 60px;
 }
 .padder a.search span {
-  background: url("../images/search.png") no-repeat;
+  background: url("/images/vr/search.png") no-repeat;
   background-size: contain;
   width: 24px;
   height: 24px;
@@ -660,7 +660,7 @@ table.history {
 .history .video-wrap div {
   width: 70px;
   height: 55px;
-  background: url("../images/vi_sm.png") no-repeat;
+  background: url("/images/vr/vi_sm.png") no-repeat;
   display: inline-block;
   vertical-align: middle;
 }
