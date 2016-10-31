@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cameras>
+	<camera id="1" url="rtsp://localhost:8554/"/>
+	<camera id="2" url="rtsp://localhost:8554/"/>
+	<camera id="3" url="rtsp://localhost:8554/"/>
+	<camera id="4" url="rtsp://localhost:8554/"/>
+	<camera id="5" url="rtsp://localhost:8554/"/>
+	<camera id="6" url="rtsp://localhost:8554/"/>
+	<camera id="7" url="rtsp://localhost:8554/"/>
+	<camera id="8" url="rtsp://localhost:8554/"/>
+</cameras>

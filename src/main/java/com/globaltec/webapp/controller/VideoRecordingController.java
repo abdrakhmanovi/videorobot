@@ -1,5 +1,6 @@
 package com.globaltec.webapp.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Properties;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.xml.sax.SAXException;
 
 import com.globaltec.ConstantsVideoRobot;
 import com.globaltec.model.Record;
@@ -40,7 +43,7 @@ public class VideoRecordingController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequest() throws Exception {
-    	setConstants();
+    	setConfiguration();
     	ModelAndView modelAndView = new ModelAndView();
     	modelAndView.addObject("camerasURL", camerasURL);
     	modelAndView.addObject("columns", ConstantsVideoRobot.COLUMNS_COUNT);
@@ -51,8 +54,16 @@ public class VideoRecordingController {
     @ResponseBody
     @Async
     public Map<String,Object> startRecording(@RequestParam("cameraIdToRecord") String cameraIdToRecord) {
-    	setConstants();
     	Map<String, Object> returnObject = new HashMap<String, Object>();
+    	try {
+			setConfiguration();
+		} catch (SAXException | IOException | ParserConfigurationException e1) {
+			e1.printStackTrace();
+			returnObject.put("errorMessage", e1.getMessage());
+			returnObject.put("isSuccessful", false);
+			stopRecording();
+			return returnObject;
+		}
     	try {
     		String[] camerasIDArray = StringUtils.split(cameraIdToRecord, "_");
     		List<String> camerasListToSubmit = new ArrayList<>();
@@ -86,8 +97,14 @@ public class VideoRecordingController {
     @ResponseBody
     @Async
     public Map<String,Object> stopRecording() {
-    	setConstants();
     	Map<String, Object> returnObject = new HashMap<String, Object>();
+    	try {
+			setConfiguration();
+		} catch (SAXException | IOException | ParserConfigurationException e1) {
+			e1.printStackTrace();
+			returnObject.put("errorMessage", e1.getMessage());
+			returnObject.put("isSuccessful", false);
+		}
     	boolean isRecordingStoped = false;
     	try {
     		isRecordingStoped = videoRecordingManager.stopRecording();
@@ -123,8 +140,7 @@ public class VideoRecordingController {
     	}
    	}
     
-    //TODO: Deal with constants
-    private void setConstants(){
-    	camerasURL = ConstantsVideoRobot.CAMERAS_URL_LIST;
+    private void setConfiguration() throws SAXException, IOException, ParserConfigurationException{
+    	camerasURL = ConstantsVideoRobot.getCameraList();
     }
 }

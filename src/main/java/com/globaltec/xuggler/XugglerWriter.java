@@ -26,8 +26,7 @@ public class XugglerWriter {
 	
 	
 	public RecordCamera startRecording() throws Exception {
-		
-		String cameraURL = ConstantsVideoRobot.CAMERAS_URL_LIST.get(cameraId);
+		String cameraURL = ConstantsVideoRobot.getCameraList().get(cameraId);
 		String filePath = ConstantsVideoRobot.FILE_STORAGE + "/" + recordId + "_" + cameraId + ".mp4";
 		
 		reader = ToolFactory.makeReader(cameraURL);
